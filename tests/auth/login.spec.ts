@@ -11,6 +11,7 @@ test("POST /login", async ({ request }) => {
   });
   const body = await response.json();
   expect(response.status()).toBe(200);
+  expect(typeof body.id).toBe('number');
 
   //Acces Token
   const accessToken = body.accessToken;
