@@ -6,13 +6,14 @@ dotenv.config();
 
 async function globalSetup() {
   const apiUrl = process.env.apiUrl as string;
-
+  const user = process.env.user as string;
+  const pass = process.env.pass as string;
   const requestContext = await request.newContext();
 
   const response = await requestContext.post(`${apiUrl}/auth/login`, {
     data: {
-      username: "emilys",
-      password: "emilyspass",
+      username: user,
+      password: pass,
     },
   });
 

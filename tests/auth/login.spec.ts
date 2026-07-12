@@ -2,11 +2,13 @@ import { test, expect } from "@playwright/test";
 import * as dotenv from "dotenv";
 dotenv.config();
 const apiUrl = process.env.apiUrl as String;
+const user = process.env.user as string;
+const pass = process.env.pass as string;
 test("POST /login", async ({ request }) => {
   const response = await request.post(apiUrl + "/auth/login", {
     data : {
-        username: "emilys",
-        password: "emilyspass",
+        username: user,
+        password: pass,
     }
   });
   const body = await response.json();
