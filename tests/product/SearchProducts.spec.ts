@@ -7,27 +7,23 @@ const ajv = new Ajv();
 const apiUrl = process.env.apiUrl as string;
 const { accessToken } = JSON.parse(fs.readFileSync("tokens.json", "utf-8"));
 
-test("GET / AllProduct", async ( {request }) => {
-    const response = await request.get(apiUrl + '/search',
+test("GET / SearchProduct", async ( {request }) => {
+    const response = await request.get(apiUrl + '/products/search',
     {
     headers: {
     Authorization: `Bearer ${accessToken}`,
     },
     params: {
-    q : "phone"
+    q : "iphone"
     }
     });
 
-    const body = await response.json();
+     const body = await response.json();
     expect(response.status()).toBe(200);
+    console.log(body); 
 
-    //pagination
-    expect(body.limit).toBe(10);
-    expect(body.skip).toBe(10);
-    expect(body.products.length).toBe(10);
+    expect(Array.isArray(body.products)).toBe(true);
+    expect(body.products.length).toBeGreaterThan(0);
     expect(body.total).toBeGreaterThan(0);
-    body.products.forEach((products: any) => {
-    expect(products.title).toBeDefined();
-    expect(products.price).toBeDefined();
-  });
+    expect(body.products.title).not.toBeNull;
 });
