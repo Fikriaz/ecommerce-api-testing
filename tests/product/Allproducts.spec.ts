@@ -7,7 +7,8 @@ const ajv = new Ajv();
 const apiUrl = process.env.apiUrl as string;
 const { accessToken } = JSON.parse(fs.readFileSync("tokens.json", "utf-8"));
 
-test("GET / AllProduct", async ( {request }) => {
+test.describe("Get All Product", () => {
+test("GET / All Products", async ( {request }) => {
     const response = await request.get(apiUrl + '/products',
     {
     headers: {
@@ -32,4 +33,28 @@ test("GET / AllProduct", async ( {request }) => {
     expect(products.title).toBeDefined();
     expect(products.price).toBeDefined();
   });
+});
+
+test("GET / SearchProduct", async ( {request }) => {
+    const response = await request.get(apiUrl + '/products/search',
+    {
+    headers: {
+    Authorization: `Bearer ${accessToken}`,
+    },
+    params: {
+    sortBy: "title",
+    order: "desc",
+    limit: 3,
+    }
+    });
+
+    const body = await response.json();
+    expect(response.status()).toBe(200);
+    console.log(body); 
+    const titles = body.products.map((product: any) => product.title.toLowerCase());
+    const sortedTitlesDesc = [...titles].sort().reverse(); 
+
+    expect(titles).toEqual(sortedTitlesDesc);
+});
+
 });

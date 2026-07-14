@@ -27,3 +27,25 @@ test("GET / SearchProduct", async ( {request }) => {
     expect(body.total).toBeGreaterThan(0);
     expect(body.products.title).not.toBeNull;
 });
+
+test("GET / Sort Product", async ( {request }) => {
+    const response = await request.get(apiUrl + '/products/search',
+    {
+    headers: {
+    Authorization: `Bearer ${accessToken}`,
+    },
+    params: {
+    sortBy: "title",
+    order: "desc",
+    limit: 3,
+    }
+    });
+
+    const body = await response.json();
+    expect(response.status()).toBe(200);
+    console.log(body); 
+    const titles = body.products.map((product: any) => product.title.toLowerCase());
+    const sortedTitlesDesc = [...titles].sort().reverse(); 
+
+    expect(titles).toEqual(sortedTitlesDesc);
+});
