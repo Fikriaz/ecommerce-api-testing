@@ -49,10 +49,9 @@ test("GET / All Products By Categories", async ( {request }) => {
     }
     expect(valid).toBe(true)
 
-    //unik kategory
+    //uniq category
     const uniqueCategory = new Set(body);
     expect(uniqueCategory.size).toBe(body.length);
 
-    
     });
   });
