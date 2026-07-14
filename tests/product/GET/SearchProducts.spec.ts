@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import Ajv from "ajv";
-import { productSchema } from "../schemas/productSchema";
+import { productSchema } from "../../schemas/productSchema";
 import * as fs from "fs";
 
 const ajv = new Ajv();

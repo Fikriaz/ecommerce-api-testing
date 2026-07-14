@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import Ajv from "ajv";
-import { categoriesSchema } from "../schemas/categoriesSchema";
+import { categoriesSchema } from "../../schemas/categoriesSchema";
 import * as fs from "fs";
 const ajv = new Ajv();
 const apiUrl = process.env.apiUrl as string;
