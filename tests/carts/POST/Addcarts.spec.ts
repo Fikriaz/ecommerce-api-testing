@@ -25,7 +25,6 @@ test("Post / Add carts ", async ( {request}) => {
             }
         }
     )
-    
     const body = await response.json();
     expect(response.status()).toBe(201);
 
