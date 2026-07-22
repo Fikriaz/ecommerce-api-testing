@@ -29,5 +29,17 @@ test("Post / Add carts ", async ( {request}) => {
     const body = await response.json();
     expect(response.status()).toBe(201);
 
-    
+    expect(body.id).toBeDefined();
+    expect(typeof body.userId).toBe("number");
+    expect(body.userId).toBe(1);
+    //cek produk input dua barang
+    expect(body.products.length).toBe(2);
+
+    // Pastikan quantity tiap produk sesuai yang dikirim
+    const product1 = body.products.find((p: any) => p.id === 144);
+    const product2 = body.products.find((p: any) => p.id === 98);
+
+    expect(product1.quantity).toBe(4);
+    expect(product2.quantity).toBe(1);
+
 });
