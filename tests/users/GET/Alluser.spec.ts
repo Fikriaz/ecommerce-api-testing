@@ -27,7 +27,7 @@ test.describe("GET/ Categories Product", () => {
 
     });
 
-test("GET / All Products By Categories", async ( {request }) => {
+test("GET / All User by Sort and limit", async ( {request }) => {
     const response = await request.get(apiUrl + '/products/categories',
     {
     headers: {
@@ -50,6 +50,33 @@ test("GET / All Products By Categories", async ( {request }) => {
     expect(body.skip).toBe(10);
     expect(body.limit).toBe(5);
    
-    });    
+    }); 
+    
+    test("GET / All User by first name and order", async ( {request }) => {
+    const response = await request.get(apiUrl + '/users',
+    {
+    headers: {
+    Authorization: `Bearer ${accessToken}`,
+    },
+    params: {
+    sortBy: "firstName",
+    order: "asc" 
+    }
+    });
+
+    const body = await response.json();
+    expect(response.status()).toBe(200);
+    console.log(body);
+    expect(body.users.id).toBeDefined();
+    expect(body.users.firstName).toBeDefined();
+    expect(body.users.age).toBeDefined();
+    
+    expect(body.skip).toBe(10);
+    expect(body.limit).toBe(5);
+   
+    }); 
+
   });
+
+  
 

@@ -36,7 +36,6 @@ test.describe(" Test Case Positive", () => {
                 Authorization : `Bearer ${accessToken}`, 
             }
         });
-
         const validate = ajv.compile(cartsListSchema)
         const body = await response.json();
         expect(response.status()).toBe(200);
