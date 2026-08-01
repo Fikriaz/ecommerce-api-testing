@@ -6,7 +6,7 @@ const ajv = new Ajv();
 const apiUrl = process.env.apiUrl as string;
 const { accessToken } = JSON.parse(fs.readFileSync("tokens.json", "utf-8"));
 
-test.describe("GET/ Categories Product", () => {
+test.describe("GET/ User", () => {
 
   test("GET / All User", async ( {request }) => {
     const response = await request.get(apiUrl + '/users',
